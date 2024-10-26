@@ -1,11 +1,33 @@
 const mongoose = require('mongoose');
 
+// Define the User Schema
 const userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String, // Hash this in your actual code for security
-  createdAt: { type: Date, default: Date.now }
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    walletAddress: {
+        type: String,
+        unique: true
+    },
+    balance: {
+        type: Number,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+// Export the User model
+module.exports = mongoose.model('User', userSchema);

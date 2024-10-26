@@ -1,48 +1,56 @@
 const User = require('./models/user');
 
-const createUser = async (name, email, password) => {
-    const newUser = new User({ name, email, password });
+// Create a new user
+const createUser = async (userData) => {
     try {
-        await newUser.save();
-        console.log('User created successfully:', newUser);
-    } catch (error) {
-        console.error('Error creating user:', error);
+        const user = new User(userData);
+        await user.save();
+        console.log('User created:', user);
+        return user;
+    } catch (err) {
+        console.error('Error creating user:', err);
     }
 };
 
-module.exports = { createUser };
-
-const findUserByEmail = async (email) => {
+// Get user by email
+const getUserByEmail = async (email) => {
     try {
         const user = await User.findOne({ email });
-        console.log('User found:', user);
         return user;
-    } catch (error) {
-        console.error('Error finding user:', error);
+    } catch (err) {
+        console.error('Error finding user:', err);
     }
 };
 
-module.exports = { findUserByEmail };
-
-const updateUser = async (email, updatedData) => {
+// Update user balance
+const updateUserBalance = async (email, newBalance) => {
     try {
-        const user = await User.findOneAndUpdate({ email }, updatedData, { new: true });
-        console.log('User updated:', user);
+        const user = await User.findOneAndUpdate(
+            { email },
+            { balance: newBalance },
+            { new: true }
+        );
+        console.log('Updated User Balance:', user);
         return user;
-    } catch (error) {
-        console.error('Error updating user:', error);
+    } catch (err) {
+        console.error('Error updating balance:', err);
     }
 };
 
-module.exports = { updateUser };
-
+// Delete user by email
 const deleteUser = async (email) => {
     try {
-        await User.findOneAndDelete({ email });
-        console.log('User deleted');
-    } catch (error) {
-        console.error('Error deleting user:', error);
+        const result = await User.deleteOne({ email });
+        console.log('User deleted:', result);
+        return result;
+    } catch (err) {
+        console.error('Error deleting user:', err);
     }
 };
 
-module.exports = { deleteUser };
+module.exports = {
+    createUser,
+    getUserByEmail,
+    updateUserBalance,
+    deleteUser
+};

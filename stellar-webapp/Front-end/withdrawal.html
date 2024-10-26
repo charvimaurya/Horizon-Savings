@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Confirmation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0; /* Light background for contrast */
+        }
+
+        .MacbookAir6 {
+            width: 1280px;
+            height: 908px;
+            position: relative;
+            background: #3A33C7;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 20px; /* Rounded corners */
+            padding: 40px;
+        }
+
+        .NavBar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .navbar-item {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 15px; /* Space between items */
+        }
+
+        .Screenshot {
+            display: block;
+            margin: 0 auto 20px auto; /* Center logo with margin */
+            width: 172px; /* Adjust size as needed */
+        }
+
+        .Rectangle1 {
+            background: white; /* Rectangle background */
+            border-radius: 15px; /* Rounded corners */
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ConfirmWithdrawal {
+            color: #3A33C7;
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px; /* Space below title */
+        }
+
+        .inputContainer {
+            margin-bottom: 20px; /* Space below input */
+        }
+
+        .label {
+            font-size: 20px;
+            color: #3A33C7;
+        }
+
+        .inputField {
+            width: calc(100% - 20px); /* Full width minus padding */
+            font-size: 24px;
+            padding: 10px;
+            border: 2px solid #3A33C7; /* Matching border color */
+            border-radius: 10px;
+            margin-top: 5px; /* Space between label and input */
+        }
+
+        .confirmButton {
+            width: 100%;
+            padding: 10px;
+            background: #18555E;
+            color: white;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .confirmButton:hover {
+            background: #0f4046; /* Darker shade on hover */
+        }
+
+        .summary {
+            margin-top: 20px; /* Space above summary */
+            text-align: center; /* Center align summary text */
+        }
+
+        .totalAmount, .transactionFee, .youAreAboutToWithdraw, .walletAddress {
+            font-size: 20px;
+            color: black;
+        }
+
+        .confirmationLinks {
+            margin-top: 30px; /* Space above links */
+            text-align: center; /* Center align links */
+            color: #070606;
+            font-size: 24px;
+        }
+
+        .confirmationLinks a {
+            text-decoration: none;
+            color: #070606;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="MacbookAir6">
+        <div class="NavBar">
+            <div class="navbar-item">Dashboard</div>
+            <div class="navbar-item">Transactions</div>
+            <div class="navbar-item">Profile</div>
+            <div class="navbar-item">Logout</div>
+        </div>
+        <img class="Screenshot" src="images/logo.png" alt="Logo" />
+        <div class="Rectangle1">
+            <div class="ConfirmWithdrawal">Confirm Withdrawal</div>
+            <div class="inputContainer">
+                <label for="withdrawalAmount" class="label">Enter Withdrawal Amount (XLM):</label>
+                <input type="number" id="withdrawalAmount" class="inputField" placeholder="Amount in XLM" min="0.01" step="0.01" />
+            </div>
+            <button id="confirmButton" class="confirmButton">Confirm Withdrawal</button>
+            <div class="summary">
+                <div class="totalAmount">Total Amount Deducted: 0.00 XLM</div>
+                <div class="transactionFee">Transaction Fee: 0.01 XLM</div>
+                <div class="youAreAboutToWithdraw">You are about to withdraw: 0.00 XLM</div>
+                <div class="walletAddress">Wallet Address: 0x1234...abcd</div>
+            </div>
+        </div>
+        
+        <div class="confirmationLinks">
+            <a href="logoutpage.html">Confirm Withdrawal</a>
+            &nbsp; &nbsp; 
+            <a href="cancel.html">Cancel</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
