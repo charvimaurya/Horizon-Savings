@@ -1,39 +1,33 @@
+// models/wallet.js
 const mongoose = require('mongoose');
 
 const walletSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User'  }, // Reference to User
-  publicKey: { type: String, unique: true },
-  secretKey: String, // Keep secure; consider encrypting
-  balance: { type: Number, default: 0 },
-  multiSignature: { type: Boolean, defaullt: false },
-  createdAT: { type: Date, default: Date.now}
+    userId: {
+        type: String,
+        required: true,
+    },
+    balance: {
+        type: Number,
+        default: 0,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
+// Add a pre-save hook to update the updatedAt timestamp
+walletSchema.pre('save', function(next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
+// Create a Wallet model
 const Wallet = mongoose.model('Wallet', walletSchema);
+
 module.exports = Wallet;
 
-const Wallet = require('./walletModel'); // Adjust path as necessary
-
-const createWallet = async (userId) => {
-    const wallet = new Wallet({ userId });
-    await wallet.save();
-    return wallet;
-};
-
-const deposit = async (walletId, amount) => {
-    const wallet = await Wallet.findById(walletId);
-    wallet.balance += amount;
-    await wallet.save();
-    return wallet;
-};
-
-const withdraw = async (walletId, amount) => {
-    const wallet = await Wallet.findById(walletId);
-    if (wallet.balance >= amount) {
-        wallet.balance -= amount;
-        await wallet.save();
-        return wallet;
-    } else {
-        throw new Error('Insufficient funds');
-    }
-};
