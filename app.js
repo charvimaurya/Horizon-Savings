@@ -27,4 +27,3 @@ app.use('/api', userRoutes); // Mount user routes under /api
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
->>>>>>> origin/main
