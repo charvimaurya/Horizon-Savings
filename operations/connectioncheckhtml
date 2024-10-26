@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Stellar Connection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stellar/sdk@^15.0.0/dist/stellar-sdk.umd.js"></script>
+</head>
+<body>
+    <h1>Stellar Wallet Connection Checker</h1>
+    <button id="checkConnectionBtn">Check Stellar Connection</button>
+    <div id="result"></div>
+
+    <script>
+        async function checkStellarConnection(publicKey) {
+            const server = new StellarSdk.Server('https://horizon.stellar.org'); // Use the Stellar mainnet server
+            try {
+                const account = await server.loadAccount(publicKey);
+                if (account) {
+                    console.log("Connected to Stellar account. Public Key:", publicKey);
+                    return true;
+                }
+            } catch (error) {
+                console.error("Stellar connection failed:", error);
+                return false;
+            }
+        }
+
+        document.getElementById('checkConnectionBtn').addEventListener('click', async () => {
+            const publicKey = prompt("Enter your Stellar public key:");
+            const isConnected = await checkStellarConnection(publicKey);
+            const resultDiv = document.getElementById('result');
+            if (isConnected) {
+                resultDiv.textContent = "Stellar wallet is connected!";
+            } else {
+                resultDiv.textContent = "Stellar wallet is not connected.";
+            }
+        });
+    </script>
+</body>
+</html>

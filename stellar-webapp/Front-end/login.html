@@ -6,6 +6,8 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS if you have one -->
     <script src="script.js" defer></script> <!-- Link to your JavaScript file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stellar-sdk/10.1.0/stellar-sdk.min.js"></script>
+
 </head>
 <body>
     <div class="MacbookAir2" style="width: 1388px; height: 823px; position: relative; background: #3A33C7; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
@@ -35,5 +37,23 @@
 
         <img class="Stellar1" style="width: 171px; height: 153px; left: 970px; top: 592px; position: absolute;" src="images/stellar.png" />
     </div>
+    <script>
+    document.getElementById('loginButton').addEventListener('click', function() {
+        const userId = document.getElementById('userId').value;
+        const password = document.getElementById('password').value;
+    
+        console.log('Login Button Clicked'); // Debug log
+    
+        // Perform login validation (this is just a placeholder; implement your actual authentication logic)
+        if (userId && password) {
+            console.log('Valid User ID and Password'); // Debug log
+            // Redirect to the next page (e.g., dashboard.html) upon successful login
+            window.location.href = 'account.html'; // Change to your target page
+        } else {
+            alert('Please enter your User ID and Password');
+        }
+    });
+</script>
+<script src="app.js"></script>
 </body>
 </html>

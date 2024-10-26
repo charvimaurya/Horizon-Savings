@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Stellar Keys</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stellar/sdk@^15.0.0/dist/stellar-sdk.umd.js"></script>
+</head>
+<body>
+    <h1>Generate Stellar Key Pair</h1>
+    <button id="generateKeysBtn">Generate Keys</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('generateKeysBtn').addEventListener('click', () => {
+            try {
+                // Generate a new key pair
+                const pair = StellarSdk.Keypair.random();
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <p><strong>Public Key:</strong> ${pair.publicKey()}</p>
+                    <p><strong>Secret Key:</strong> ${pair.secret()}</p>
+                `;
+                console.log("Generated Key Pair:", pair);
+            } catch (error) {
+                console.error("Error generating keys:", error);
+                document.getElementById('result').innerHTML = "<p>Error generating keys. Please try again.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

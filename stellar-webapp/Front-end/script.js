@@ -25,21 +25,82 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'account.html';
     });
 });
-document.addEventListener("DOMContentLoaded", () => {
-    // Function to display balance from localStorage
-    function displayBalance() {
-        const balance = localStorage.getItem('xlmBalance') || '100.50'; // Default balance if not set
-        document.querySelector('.XlmBalanceAmount').textContent = `${balance} XLM`;
-    }
+import { Server, Keypair } from 'stellar-sdk'; // Make sure to import Stellar SDK
 
-    // Display initial balance on load
-    displayBalance();
+// Initialize Stellar Server (Testnet or Mainnet)
+const server = new Server('https://horizon-testnet.stellar.org'); // For Testnet
+// const server = new Server('https://horizon.stellar.org'); // For Public Network
+
+// Add your Stellar secret key here (ensure this is done securely)
+const sourceSecret = "SXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Replace with your secret key
+
+async function sendPayment(sourceSecret, destinationPublicKey, amount) {
+    try {
+        const sourceKeypair = Keypair.fromSecret(sourceSecret);
+        const account = await server.loadAccount(sourceKeypair.publicKey());
+
+        const paymentOp = {
+            destination: destinationPublicKey,
+            asset: StellarSdk.Asset.native(), // Use XLM
+            amount: amount.toString(), // Amount to send (string format)
+        };
+
+        const transaction = new StellarSdk.TransactionBuilder(account, {
+            fee: await server.fetchBaseFee(), // Fetch the current base fee
+            networkPassphrase: StellarSdk.Networks.TESTNET, // Change for mainnet
+        })
+        .addOperation(StellarSdk.Operation.payment(paymentOp))
+        .setTimeout(30)
+        .build();
+
+        transaction.sign(sourceKeypair);
+
+        const result = await server.submitTransaction(transaction);
+        console.log("Payment Successful! Result:", result);
+    } catch (error) {
+        console.error("Error sending payment:", error);
+    }
+}
+
+// Event listener for form submission
+document.getElementById('paymentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const destinationPublicKey = document.getElementById('destinationPublicKey').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+
+    sendPayment(sourceSecret, destinationPublicKey, amount); // Ensure sourceSecret is securely managed
+});
+
 
     // Reload button functionality to update balance display
     document.querySelector('.Reload').addEventListener('click', () => {
         displayBalance();
     });
+
+    const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://user1:<db_password>@horizonsavings.fit27.mongodb.net/?retryWrites=true&w=majority&appName=HorizonSavings";
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
 });
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 
 
 
@@ -151,5 +212,17 @@ document.getElementById('logOutButton').addEventListener('click', function() {
 document.getElementById('cancelButton').addEventListener('click', function() {
     // Redirect back to the previous page
     window.location.href = 'account.html'; // Replace with the actual dashboard page
+});
+document.getElementById('loginButton').addEventListener('click', function() {
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
+
+    // Perform login validation (this is just a placeholder; implement your actual authentication logic)
+    if (userId && password) {
+        // Redirect to the next page (e.g., dashboard.html) upon successful login
+        window.location.href = 'dashboard.html'; // Change 'dashboard.html' to your target page
+    } else {
+        alert('Please enter your User ID and Password');
+    }
 });
 

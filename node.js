@@ -1,0 +1,4 @@
+Script started on Sat Oct 26 15:30:56 2024
+[1m[7m%[27m[1m[0m                                                                                                                                                               [0m[27m[24m[J(base) charvi@Charvis-MacBook-Air-2 Horizon-Savings % [K[?2004h[7mstellar-core new-db[27m[19D[27ms[27mt[27me[27ml[27ml[27ma[27mr[27m-[27mc[27mo[27mr[27me[27m [27mn[27me[27mw[27m-[27md[27mb[?2004l
+zsh: command not found: stellar-core
+[1m[7m%[27m[1m[0m                                                                                                                                                               [0m[27m[24m[J(base) charvi@Charvis-MacBook-Air-2 Horizon-Savings % [K[?2004h
