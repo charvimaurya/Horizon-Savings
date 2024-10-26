@@ -1,33 +1,12 @@
 // models/wallet.js
 const mongoose = require('mongoose');
 
+// Define a schema and model for MongoDB
 const walletSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true,
-    },
-    balance: {
-        type: Number,
-        default: 0,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
+  publicKey: String,
+  secretKey: String,
 });
 
-// Add a pre-save hook to update the updatedAt timestamp
-walletSchema.pre('save', function(next) {
-    this.updatedAt = Date.now();
-    next();
-});
-
-// Create a Wallet model
 const Wallet = mongoose.model('Wallet', walletSchema);
 
 module.exports = Wallet;
-

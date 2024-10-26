@@ -1,19 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const StellarSdk = require('stellar-sdk'); // Import Stellar SDK if needed
+const User = require('../models/wallet'); // Import your User model
 
-// Define routes for wallets
-router.get('/', (req, res) => {
-    // Logic to get all wallets
+// Example route to create a user
+router.post('/create-user', async (req, res) => {
+    // Generate a Stellar keypair
+    const keypair = StellarSdk.Keypair.random();
+  
+    try {
+        // Create a new user instance
+        const newUser = new User({
+            publicKey: keypair.publicKey(),
+            secretKey: keypair.secret(),
+        });
+        
+        // Save user to MongoDB
+        await newUser.save();
+        res.status(201).json(newUser); // Send back the created user
+    } catch (error) {
+        res.status(500).json({ error: error.message }); // Handle errors
+    }
 });
-
-router.post('/', (req, res) => {
-    // Logic to create a new wallet
-
-});
-
-router.get('/:id', (req, res) => {
-    // Logic to get a specific wallet by ID
-});
-
-// Export the router
 module.exports = router;

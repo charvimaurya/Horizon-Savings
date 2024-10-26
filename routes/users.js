@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/useroperations');
 
+<<<<<<< HEAD
 // Create a new user
 router.post('/', async (req, res) => {
     const userData = req.body;
@@ -41,3 +42,21 @@ router.delete('/:email', async (req, res) => {
 });
 
 module.exports = router;
+=======
+// Define routes for wallets
+router.get('/', (req, res) => {
+    // Logic to get all wallets
+});
+
+router.post('/', (req, res) => {
+    // Logic to create a new wallet
+
+});
+
+router.get('/:id', (req, res) => {
+    // Logic to get a specific wallet by ID
+});
+
+// Export the router
+module.exports = router;
+>>>>>>> b19ccf50d8d72211b7854403c00a0bd24d911a55
