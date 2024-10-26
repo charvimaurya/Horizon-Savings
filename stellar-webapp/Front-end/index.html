@@ -18,5 +18,73 @@
     </a>
     
     <img class="Stellar1" style="width: 130.44px; height: 146.75px; left: 1010px; top: 606px; position: absolute" src="images/stellar.png" />
-    <script src="app.js"></script>
+    <script src="script.js"></script>
+    
+
+<script>
+    
+        // Ensure the entire code runs in an asynchronous context
+        (async () => {
+            try {
+                // Send a POST request to the backend for user authentication
+                const response = await fetch('http://localhost:3001/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // Add body if needed, e.g., for username and password
+                    body: JSON.stringify({ username: 'yourUsername', password: 'yourPassword' })
+                });
+    
+                // Check response status
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                console.log('Login successful:', data);
+                // Add additional login handling logic here
+    
+            } catch (error) {
+                console.error('Error during login:', error);
+            }
+    
+            // Stellar SDK setup
+            const StellarSdk = require('stellar-sdk');
+            const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+    
+            // Sample function: Load Stellar Account
+            async function loadAccount(publicKey) {
+                try {
+                    const account = await server.loadAccount(publicKey);
+                    console.log("Account loaded:", account);
+                } catch (error) {
+                    console.error("Error loading account:", error);
+                }
+            }
+    
+            // Function to create a new Stellar account
+            async function createNewAccount() {
+                const pair = StellarSdk.Keypair.random();
+                console.log("New Account Keypair:", pair.publicKey(), pair.secret());
+                // To fund it, you may need to call a backend function that funds the account
+            }
+    
+            // Check if "Get Started" is clicked
+            document.querySelector('.GetStarted').addEventListener('click', () => {
+                const publicKey = "Your Public Key Here"; // Update with actual public key
+                loadAccount(publicKey);  // Attempt to load the Stellar account with the public key
+                // or createNewAccount(); if starting a new account process
+            });
+        })(); // Immediately Invoked Function Expression (IIFE) to handle async/await
+    </script>
+    
+
+
+
+    
+
+
 </div>
+</body>
+</html>
