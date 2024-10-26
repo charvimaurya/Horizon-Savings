@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const StellarSdk = require('stellar-sdk');
-const User = require('../models/user'); // Import the User model
+const User = require('../models/wallet'); // Import the User model
 
 // Replace with your MongoDB connection string
 const mongoURI = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/';

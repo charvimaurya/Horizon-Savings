@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/users'); // Import user routes
+const userRoutes = require('./routes/wallets'); // Import user routes
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Use 3001 or your preferred port
