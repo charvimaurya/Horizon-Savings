@@ -1,30 +1,40 @@
-<<<<<<< HEAD
-=======
 // app.js or server.js
 const express = require('express');
-const mongoose = require('mongoose'); // Import Mongoose
-const app = express();
-const walletsRoutes = require('./routes/wallets'); // Import wallet routes
-const userRoutes = require('./routes/users'); // Import user routes
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
 
-// MongoDB connection URI (replace with your actual connection string)
-const uri = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/NG'; // Add your connection string here
+const userRoutes = require('./routes/users');
+const walletsRoutes = require('./routes/wallets');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// MongoDB connection URI (use environment variable for security)
+const uri = process.env.MONGO_URI || 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/';
+
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected successfully'))
-    .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('Error connecting to MongoDB:', err));
 
-app.use(express.json()); // Middleware to parse JSON requests
-
-// Use the user routes
-app.use('/api/users', userRoutes); // All user routes will start with /api/users
-
-// Use the wallets routes
-app.use('/api/wallets', walletsRoutes); // All wallet routes will start with /api/wallets
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+// Root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'operations', 'key.html'));
 });
->>>>>>> origin/main
+
+// API routes
+app.use('/api/users', userRoutes); // Mount user routes
+app.use('/api/wallets', walletsRoutes); // Mount wallet routes
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
