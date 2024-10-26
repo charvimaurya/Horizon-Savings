@@ -1,7 +1,15 @@
 # Horizon Saving App
 
-Welcome to **Horizon Saving**! We're excited to offer you a secure and user-friendly wallet to grow and protect your savings on the Stellar blockchain. With features like multi-signature security, rewards on deposits, and strong authentication, managing your XLM funds has never been easier or safer.
-
+ Welcome to **Horizon Saving**! 
+ 
+ Let us take care of your XLM funds on the Stellar blockchain. 
+ No need to set up a complex server setup and complicated IP addresses for your 'wallet'. Use HorizonSaving to grow your savings in a safe and easy way, as if it was just a normal bank account – except with better interest and much lower fees. 
+ 
+ HorizonSaving provides you with a smooth Hyperledger account with authentication and all feature you need to transact with crypto currencies in a safe and easy way: Multi-Sign Security: with multiple keys in the digital lock, no one account can spend your money alone. 
+ 
+ - Rewards on Deposits: with interest on your crypto currencies in your Hyperledger account, you can earn while you save. 
+ - Strong Authentication: features such as 2-factor authorisation and hardwallet (USB compatible) makes a secure private key safe from any kind of hack.
+ 
 ## Table of Contents
 
 - [About the Project](#about-the-project)
