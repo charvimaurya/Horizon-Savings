@@ -1,122 +1,146 @@
 # Horizon Saving App
 
-Welcome to **Horizon Saving**, a secure and user-friendly wallet for growing and protecting your savings on the Stellar blockchain. Horizon Saving provides a safe, inflation-protected way to manage your XLM funds with added features like multi-signature security, rewards on deposits, and authentication.
+Welcome to **Horizon Saving**! We're excited to offer you a secure and user-friendly wallet to grow and protect your savings on the Stellar blockchain. With features like multi-signature security, rewards on deposits, and strong authentication, managing your XLM funds has never been easier or safer.
 
----
+## Table of Contents
 
-### 🌟 Overview
+- [About the Project](#about-the-project)
+- [Key Features](#key-features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Setup](#setup)
+  - [For Developers](#for-developers)
+- [Backend Structure](#backend-structure)
+- [Team Members](#team-members)
+- [Security Note](#security-note)
+- [Support](#support)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-Horizon Saving allows users to deposit and grow XLM (Stellar's cryptocurrency) in a secure wallet, safeguarded against inflation. The app leverages Stellar’s blockchain capabilities to provide:
+## About the Project
 
-- **Savings Wallets**: Deposit XLM and earn rewards.
-- **Multi-Signature Wallet Security**: Enhanced security through multiple signers.
-- **Account Authentication**: Secure user access and account management.
-- **User-Friendly Account Management**: Seamless management of savings and Stellar accounts.
+Horizon Saving is all about making your experience with XLM (Stellar's cryptocurrency) as smooth and rewarding as possible. Whether you're just stepping into the world of blockchain or you're a seasoned pro, we've got an intuitive interface and robust security features to help your savings grow while keeping them safe from inflation.
 
-### 🔑 Key Features
+## Key Features
 
-1. **Account Management**  
-   Simplified account management makes it easy to set up, manage, and monitor your Stellar savings wallet.
+1. **Easy Account Management**
+   - Set up, manage, and monitor your Stellar savings wallet with ease.
 
-2. **Secure Multi-Signature Wallets**  
-   Horizon Saving supports multi-signature wallets, adding a layer of security by requiring multiple authorizations for transactions.
+2. **Multi-Signature Wallets for Extra Security**
+   - Require multiple approvals for transactions to add an extra layer of protection.
 
-3. **Interest and Rewards on Savings**  
-   With Horizon Saving, you earn rewards on your XLM deposits, helping your savings grow passively.
+3. **Earn Rewards on Your Savings**
+   - Let your savings grow passively with rewards on your XLM deposits.
 
-4. **Inflation Protection**  
-   By storing XLM in Horizon Saving, users gain protection against inflation, with automatic adjustments to safeguard the value of their savings.
+4. **Protection Against Inflation**
+   - Keep the value of your savings intact with automatic adjustments for inflation.
 
-5. **Account Authentication**  
-   The authentication system ensures only authorized users access the app, providing security for each user’s wallet.
+5. **Secure Authentication**
+   - Rest easy knowing only you have access to your wallet through secure login.
 
-6. **Secure Stellar Transactions**  
-   Horizon Saving utilizes Stellar’s secure blockchain for fast, low-cost transactions. Every transaction is protected by Stellar’s consensus protocol for maximum safety.
+6. **Fast and Secure Transactions**
+   - Enjoy quick and low-cost transactions, all safeguarded by Stellar’s consensus protocol.
 
----
+## Technologies Used
 
-### 🚀 Getting Started
+We've built Horizon Saving using:
 
-To start using Horizon Saving, follow these steps:
+- **Stellar SDK**
+  - For seamless blockchain integration, account creation, and managing transactions.
 
-1. **Set Up Your Wallet**  
-   A unique Stellar wallet is generated upon account creation, providing a **Public Key** (for receiving funds) and a **Secret Key** (for authorization). Store your Secret Key securely, as it grants access to your funds.
-   
-2. **Deposit XLM**  
-   Deposit XLM into your wallet, with funds available almost immediately in Horizon Saving.
+- **Node.js & Express**
+  - Powering our backend and server-side operations.
 
-3. **Enable Multi-Signature Security (Optional)**  
-   Multi-signature wallets allow you to require multiple approvals for significant transactions, adding another layer of security.
+- **JavaScript**
+  - The core language driving both our backend and frontend functionalities.
 
-4. **Authenticate Your Account**  
-   Use the secure login feature to access your wallet, ensuring only authorized access to your savings.
+- **API Endpoints**
+  - Facilitating wallet management, multi-signature setups, and secure transactions.
 
-5. **Grow Your Savings**  
-   Horizon Saving applies interest or rewards automatically, allowing your funds to grow over time.
+## Getting Started
 
----
+### Setup
 
-### 🛠️ Stellar Integration and Blockchain Security
+Ready to start your savings journey? Here's how:
 
-Built on the **Stellar SDK**, Horizon Saving securely manages your transactions and account settings through Stellar’s blockchain:
+1. **Set Up Your Wallet**
+   - Create an account, and we'll generate a unique Stellar wallet just for you.
+   - You'll get a **Public Key** (to receive funds) and a **Secret Key** (for authorization).
+   - **Important:** Keep your Secret Key safe and private!
 
-- **Account Creation**: Generate and fund Stellar accounts securely.
-- **Send and Receive XLM**: Easily handle transactions across Stellar’s network.
-- **Multi-Signature Transactions**: Set up multi-signature configurations to secure larger transactions.
+### For Developers
 
-With Stellar’s blockchain integration, Horizon Saving provides a secure, reliable, and scalable solution for managing XLM.
-
----
-
-### 📂 Backend Structure
-
-The backend includes specific files and directories to support core functionalities:
-
-1. **Routes**:  
-   - `wallets.js`: Defines routes for wallet-related functionalities, supporting wallet creation, management, and transactions.
-
-2. **Models**:  
-   - `transaction.js`, `user.js`, and `wallet.js` define data structures for handling transactions, user accounts, and wallets.
-
-3. **Operations**:  
-   - `useroperations.js`: Manages user-specific operations, including authentication and user data.
-   - `walletoperations.js`: Manages wallet-specific operations like deposits, withdrawals, and multi-signature setups.
-
-This structured backend enables streamlined wallet management, secure user authentication, and Stellar transaction handling.
-
----
-
-### 🧩 Technical Setup (For Developers)
-
-If you're a developer looking to set up Horizon Saving locally or contribute to the project, here's how to get started:
+If you're interested in running Horizon Saving locally or contributing to our project, here's how to get started:
 
 1. **Clone the Repository**
-   
+
    ```bash
    git clone <repository-url>
    cd Horizon-Savings-main
-
-
 2. **Install Dependencies**
-   
+
    ```bash
+   Copy code
    npm install
+   Run the Server
 
-3. **Run the Server**
+   bash
+   Copy code
+   node app.js
+   Backend Structure
+   Our backend is thoughtfully organized to ensure everything runs smoothly:
 
-    ```node app.js
+3. **Routes**
 
-The backend is built using Node.js and Express, and depends upon Stellar SDK for blockchain integration. The app also features API endpoints for wallet management, multi-signature setup, and secure transactions.
+   - wallets.js: Handles wallet-related functionalities like creation, management, and transactions.
 
-### ⚠️ Security Note
+4. **Models**
+   - transaction.js, user.js, wallet.js: Define data structures for transactions, user accounts, and wallets.
 
-Always keep your Secret Key private! Anyone with access to your Secret Key can control your funds, so be cautious and avoid sharing it with others. For even stronger security, consider using Horizon Saving’s multi-signature feature to require multiple authorizations on your wallet.
+5. **Operations**
+   - useroperations.js: Manages user authentication and data.
+   - walletoperations.js: Handles deposits, withdrawals, and multi-signature setups.
+6. **Team Members**
 
-### 💬 Support
+Our dedicated team has worked tirelessly to bring Horizon Saving to life:
 
-If you have questions, suggestions, or need assistance, feel free to reach out. The Horizon Saving team is dedicated to providing a secure, user-friendly savings experience for all our users.
+   - Charvi - Frontend Developer (UI/UX & Dashboard Layout):
+      - Designed the dashboard with a focus on security and trust, using a palette of dark blues, grays, and whites.
+      - Developed main sections: balance display, deposits, rewards, and recent transactions.
+      - Ensured the interface is responsive and user-friendly.
+      - Assisted in creating a concise project description.
+   - Mariam - Frontend Developer (Functionality Integration & Interactivity)
+      - Implemented interactive elements like buttons and input forms for user actions.
+      - Set up clear labels and calls to action for each functionality.
+      - Integrated the user interface with backend APIs for smooth functionality.
+      - Contributed to the detailed README documentation and created a video demo.
+   - Maira - Backend Developer (User Account Management)
+      - Set up the database for user accounts and transactions.
+      - Developed APIs for user registration, login, and account management.
+      - Ensured the user authentication process is secure.
+      - Wrote API documentation for user account-related functionalities.
+   - Anan - Backend Developer (Stellar Integration & Wallet Features)
+      - Set up the Stellar SDK and handled key wallet functionalities like creating wallets and sending/receiving XLM.
+      - Implemented basic multi-signature wallet functionality.
+      - Documented the Stellar integration process and wallet functionalities.
+   - Lina - Backend Developer (Transaction Management & APIs)
+      - Developed APIs for deposit, withdrawal, and transaction tracking.
+      - Ensured backend services handle user transactions securely and efficiently.
+      - Collaborated with frontend developers for seamless integration.
+      - Prepared a link to the public GitHub repository containing the deployed code.
 
+### Security Note
+
+   - 🚨 Keep your Secret Key private!
+   Your Secret Key grants access to your funds. Never share it with anyone, and consider enabling multi-signature features for enhanced security.
+
+### Support
+Got questions or need assistance? We're here to help! Reach out to our support team anytime. We're dedicated to ensuring a secure and enjoyable experience for all our users.
+
+### License
+This project is licensed under the MIT License.
+
+### Acknowledgements
+Stellar Development Foundation for the Stellar SDK and blockchain network.
 ---
-
-Thank you for choosing Horizon Saving—where your XLM savings are secure, grow with interest, and are protected from inflation. Happy saving! 🎉
-
+Thank you for choosing Horizon Saving—where your XLM savings are secure, earn rewards, and stay protected from inflation. Happy saving! 🎉
