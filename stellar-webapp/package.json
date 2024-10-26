@@ -1,0 +1,20 @@
+{
+  "name": "horizon-savings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "stellar-sdk": "^12.3.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
