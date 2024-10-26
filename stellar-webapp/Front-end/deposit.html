@@ -35,9 +35,11 @@
         }
 
         .Screenshot {
-            display: block;
-            margin: 0 auto 20px auto; /* Center logo with margin */
-            width: 285px; /* Adjust size as needed */
+            width: 174px;
+            height: 75px;
+            left: 40px;
+            top: 20px;
+            position: absolute;
         }
 
         .Rectangle1 {
@@ -138,11 +140,60 @@
         
         <div class="confirmationLinks">
             <a href="logoutpage.html">Confirm Deposit</a>
-            &nbsp; &nbsp; 
-            <a href="cancel.html">Cancel</a>
+            
+            <a href="account.html">Cancel</a>
         </div>
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+    // script.js
+
+document.getElementById('depositAmount').addEventListener('input', function() {
+    const depositAmount = parseFloat(this.value);
+    const transactionFee = 0.01; // Assume a fixed transaction fee for now
+
+    if (!isNaN(depositAmount) && depositAmount > 0) {
+    document.querySelector('.totalAmount').textContent = `Total Amount: $${(depositAmount + transactionFee).toFixed(2)}`;
+    document.querySelector('.youAreAboutToDeposit').textContent = `You are about to deposit: $${depositAmount.toFixed(2)}`;
+} else {
+    document.querySelector('.totalAmount').textContent = 'Total Amount: $0.00';
+    document.querySelector('.youAreAboutToDeposit').textContent = 'You are about to deposit: $0.00';
+}
+
+});
+
+document.getElementById('confirmButton').addEventListener('click', async function() {
+    const depositAmount = parseFloat(document.getElementById('depositAmount').value);
+
+    if (isNaN(depositAmount) || depositAmount <= 0) {
+        alert('Please enter a valid deposit amount.');
+        return;
+    }
+
+    // Here you would add the logic to process the deposit via the Stellar SDK
+    // For example:
+    try {
+        const userAccountId = 'YOUR_ACCOUNT_ID'; // Replace with actual account ID
+        const response = await depositFunds(userAccountId, depositAmount); // You would need to implement this function
+
+        // Handle successful deposit (e.g., redirect or show success message)
+        alert('Deposit successful!');
+        window.location.href = 'logoutpage.html'; // Redirect to confirmation page
+    } catch (error) {
+        console.error('Deposit failed:', error);
+        alert('Error processing deposit. Please try again later.');
+    }
+});
+
+// Example function to simulate fund deposit
+async function depositFunds(accountId, amount) {
+    // Logic to connect to Stellar and process the deposit would go here
+    // This is a placeholder function
+    return new Promise((resolve) => setTimeout(resolve, 1000)); // Simulates a network request
+}
+</script>
 </body>
-</html>
+
+</html> 
