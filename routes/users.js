@@ -1,62 +1,28 @@
 const express = require('express');
-const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/userOperations');
 const router = express.Router();
+const StellarSdk = require('stellar-sdk'); // Import Stellar SDK if needed
+const User = require('../models/user'); // Import your User model
 
-// Create a new user
-router.post('/', async (req, res) => {
-    const userData = req.body;
+// Example route to create a user
+router.post('/create-user', async (req, res) => {
+    // Generate a Stellar keypair
+    const keypair = StellarSdk.Keypair.random();
+  
     try {
-        const user = await createUser(userData);
-        res.status(201).json(user);
+        // Create a new user instance
+        const newUser = new User({
+            publicKey: keypair.publicKey(),
+            secretKey: keypair.secret(),
+        });
+        
+        // Save user to MongoDB
+        await newUser.save();
+        res.status(201).json(newUser); // Send back the created user
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message }); // Handle errors
     }
 });
 
-// Get user by email
-router.get('/:email', async (req, res) => {
-    const { email } = req.params;
-    try {
-        const user = await getUserByEmail(email);
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// You can add more routes for users here, e.g., to get or delete users
 
-// Update user balance
-router.put('/:email/balance', async (req, res) => {
-    const { email } = req.params;
-    const { newBalance } = req.body;
-    try {
-        const updatedUser = await updateUserBalance(email, newBalance);
-        if (updatedUser) {
-            res.status(200).json(updatedUser);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Delete user by email
-router.delete('/:email', async (req, res) => {
-    const { email } = req.params;
-    try {
-        const result = await deleteUser(email);
-        if (result.deletedCount > 0) {
-            res.status(200).json({ message: 'User deleted' });
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-module.exports = router;
+module.exports = router; // Export the router

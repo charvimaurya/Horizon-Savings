@@ -1,33 +1,11 @@
 const mongoose = require('mongoose');
 
-// Define the User Schema
+// Define a schema and model for MongoDB
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    walletAddress: {
-        type: String,
-        unique: true
-    },
-    balance: {
-        type: Number,
-        default: 0
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+  publicKey: String,
+  secretKey: String,
 });
 
-// Export the User model
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

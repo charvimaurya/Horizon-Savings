@@ -1,38 +1,37 @@
-// operations/walletoperations.js
-const Wallet = require('../models/wallet'); // Import the Wallet model
+const mongoose = require('mongoose');
+const StellarSdk = require('stellar-sdk');
+const User = require('../models/user'); // Import the User model
 
-// Function to create a new wallet
-async function createWallet(userId) {
-    const wallet = new Wallet({ userId });
-    return await wallet.save(); // Save the new wallet to the database
+// Replace with your MongoDB connection string
+const mongoURI = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/';
+
+async function connectToDatabase() {
+  await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+  console.log('MongoDB connected');
 }
 
-// Function to deposit funds into a wallet
-async function depositFunds(walletId, amount) {
-    const wallet = await Wallet.findById(walletId);
-    if (!wallet) {
-        throw new Error('Wallet not found');
-    }
-    wallet.balance += amount; // Update the balance
-    return await wallet.save(); // Save the updated wallet
+// Generate a random Stellar keypair and save it to MongoDB
+async function createAndSaveUser() {
+  const keypair = StellarSdk.Keypair.random();
+
+  console.log('Public Key:', keypair.publicKey());
+  console.log('Secret Key:', keypair.secret());
+
+  const newUser = new User({
+    publicKey: keypair.publicKey(),
+    secretKey: keypair.secret(),
+  });
+
+  await newUser.save();
+  console.log('User saved to MongoDB:', newUser);
 }
 
-// Function to withdraw funds from a wallet
-async function withdrawFunds(walletId, amount) {
-    const wallet = await Wallet.findById(walletId);
-    if (!wallet) {
-        throw new Error('Wallet not found');
-    }
-    if (wallet.balance < amount) {
-        throw new Error('Insufficient balance');
-    }
-    wallet.balance -= amount; // Update the balance
-    return await wallet.save(); // Save the updated wallet
+async function main() {
+  await connectToDatabase();
+  await createAndSaveUser();
 }
 
-// Export the functions
 module.exports = {
-    createWallet,
-    depositFunds,
-    withdrawFunds,
+  main,
 };
+
