@@ -51,3 +51,32 @@ async function sendPayment(sourceSecret, destinationPublicKey, amount) {
         console.error("Payment failed:", error);
     }
 }
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
+
+const express = require('express');
+const mongoose = require('mongoose');
+const transactionRoutes = require('./transactionRoutes'); // Import your transaction routes
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(express.json()); // To parse JSON bodies
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB connected'))
+.catch(error => console.error('MongoDB connection error:', error));
+
+// Use transaction routes
+app.use('/api/transactions', transactionRoutes);
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});

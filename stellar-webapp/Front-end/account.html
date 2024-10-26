@@ -228,6 +228,37 @@
 </div>
 
 <script src="script.js"></script>
-<script src="app.js"></script>
+
+<script>
+// script.js
+
+// Assuming you have already set up your Stellar SDK and the server connection
+const server = new StellarSdk.Server('https://horizon.stellar.org'); // Use the public Stellar network
+
+async function fetchBalance(accountId) {
+    try {
+        const account = await server.loadAccount(accountId);
+        const balance = account.balances.find(b => b.asset_type === 'native'); // XLM balance is native
+        document.querySelector('.XlmBalanceAmount').textContent = `${balance.balance} XLM`;
+    } catch (error) {
+        console.error('Error fetching balance:', error);
+        alert('Could not fetch balance. Please try again later.');
+    }
+}
+
+// Reload the balance when the reload icon is clicked
+document.querySelector('.Reload').addEventListener('click', () => {
+    const userAccountId = 'YOUR_ACCOUNT_ID'; // Replace with the actual user account ID
+    fetchBalance(userAccountId);
+});
+
+// Initial balance fetch when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const userAccountId = 'YOUR_ACCOUNT_ID'; // Replace with the actual user account ID
+    fetchBalance(userAccountId);
+});
+
+</script>
+
 </body>
 </html>

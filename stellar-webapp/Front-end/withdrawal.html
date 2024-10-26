@@ -37,8 +37,8 @@
         .Screenshot {
             width: 174px;
             height: 75px;
-            left: 291px;
-            top: 51px;
+            left: 40px;
+            top: 20px;
             position: absolute;
         }
 
@@ -146,6 +146,59 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="app.js"></script>
+
+    <script>
+    // script.js
+
+document.getElementById('withdrawalAmount').addEventListener('input', function() {
+    const withdrawalAmount = parseFloat(this.value);
+    const transactionFee = 0.01; // Assume a fixed transaction fee for now
+
+    if (!isNaN(withdrawalAmount) && withdrawalAmount > 0) {
+        document.querySelector('.totalAmount').textContent = `Total Amount Deducted: ${(withdrawalAmount + transactionFee).toFixed(2)} XLM`;
+        document.querySelector('.youAreAboutToWithdraw').textContent = `You are about to withdraw: ${withdrawalAmount.toFixed(2)} XLM`;
+    } else {
+        document.querySelector('.totalAmount').textContent = `Total Amount Deducted: 0.00 XLM`;
+        document.querySelector('.youAreAboutToWithdraw').textContent = `You are about to withdraw: 0.00 XLM`;
+    }
+});
+
+document.getElementById('confirmButton').addEventListener('click', async function() {
+    const withdrawalAmount = parseFloat(document.getElementById('withdrawalAmount').value);
+
+    // Add your own logic here to get the user's available balance
+    const availableBalance = 100; // Placeholder for the user's available balance
+
+    if (isNaN(withdrawalAmount) || withdrawalAmount <= 0 || withdrawalAmount + 0.01 > availableBalance) {
+        alert('Please enter a valid withdrawal amount that does not exceed your balance.');
+        return;
+    }
+
+    // Here you would add the logic to process the withdrawal via the Stellar SDK
+    // For example:
+    try {
+        const userAccountId = 'YOUR_ACCOUNT_ID'; // Replace with actual account ID
+        const response = await withdrawFunds(userAccountId, withdrawalAmount); // You would need to implement this function
+
+        // Handle successful withdrawal (e.g., redirect or show success message)
+        alert('Withdrawal successful!');
+        window.location.href = 'confirmation.html'; // Redirect to confirmation page
+    } catch (error) {
+        console.error('Withdrawal failed:', error);
+        alert('Error processing withdrawal. Please try again later.');
+    }
+});
+
+// Example function to simulate fund withdrawal
+async function withdrawFunds(accountId, amount) {
+    // Logic to connect to Stellar and process the withdrawal would go here
+    // This is a placeholder function
+    return new Promise((resolve) => setTimeout(resolve, 1000)); // Simulates a network request
+}
+
+
+
+</script> 
+
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Stellar Connection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stellar/sdk@15.0.0/dist/stellar-sdk.umd.js"></script>
+
+
+</head>
+<body>
+    <h1>Stellar Wallet Connection Checker</h1>
+    <button id="checkConnectionBtn">Check Stellar Connection</button>
+    <div id="result"></div>
+
+    
+        // Function to check Stellar connection
+        <script>
+            import { webAuthStore } from './path/to/your/store';
+            let publicKey = '';
+            
+            function validateKey() {
+              webAuthStore.checkPublicKey(publicKey);
+            }
+        </script>
+          
+          <input type="text" bind:value={publicKey} placeholder="Enter Stellar Public Key" />
+          <button on:click={validateKey}>Check Public Key</button>
+          
+    
+</body>
+</html>
