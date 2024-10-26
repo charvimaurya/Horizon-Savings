@@ -6,7 +6,7 @@ const walletsRoutes = require('./routes/wallets'); // Import wallet routes
 const userRoutes = require('./routes/users'); // Import user routes
 
 // MongoDB connection URI (replace with your actual connection string)
-const uri = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/NG'; // Add your connection string here
+const uri = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/'; // Add your connection string here
 
 // Connect to MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,3 +25,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+

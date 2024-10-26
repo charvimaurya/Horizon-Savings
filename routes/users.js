@@ -1,61 +1,42 @@
 const express = require('express');
-const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/userOperations');
 const router = express.Router();
+const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/useroperations');
 
 // Create a new user
 router.post('/', async (req, res) => {
     const userData = req.body;
-    try {
-        const user = await createUser(userData);
-        res.status(201).json(user);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+    const user = await createUser(userData);
+    res.status(201).json(user);
 });
 
 // Get user by email
 router.get('/:email', async (req, res) => {
-    const { email } = req.params;
-    try {
-        const user = await getUserByEmail(email);
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    const user = await getUserByEmail(req.params.email);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).send('User not found');
     }
 });
 
 // Update user balance
 router.put('/:email/balance', async (req, res) => {
-    const { email } = req.params;
     const { newBalance } = req.body;
-    try {
-        const updatedUser = await updateUserBalance(email, newBalance);
-        if (updatedUser) {
-            res.status(200).json(updatedUser);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    const updatedUser = await updateUserBalance(req.params.email, newBalance);
+    if (updatedUser) {
+        res.json(updatedUser);
+    } else {
+        res.status(404).send('User not found');
     }
 });
 
-// Delete user by email
+// Delete user
 router.delete('/:email', async (req, res) => {
-    const { email } = req.params;
-    try {
-        const result = await deleteUser(email);
-        if (result.deletedCount > 0) {
-            res.status(200).json({ message: 'User deleted' });
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    const result = await deleteUser(req.params.email);
+    if (result.deletedCount > 0) {
+        res.send('User deleted');
+    } else {
+        res.status(404).send('User not found');
     }
 });
 
