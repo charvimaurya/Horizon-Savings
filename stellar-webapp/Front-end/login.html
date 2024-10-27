@@ -16,7 +16,7 @@
             <div class="Logout" style="left: 534px; top: 0px; position: absolute; color: #F9F2F2; font-size: 24px; font-family: Inter; font-weight: 700;">Logout</div>
             <div class="Profile" style="left: 396px; top: 0px; position: absolute; color: #F4E8E8; font-size: 24px; font-family: Inter; font-weight: 700;">Profile</div>
         </div>
-        <img class="Screenshot20241025At1457131" style="width: 170px; height: 51px; left: 229px; top: 38px; position: absolute;" src="images/logo.png" />
+        <img class="Screenshot20241025At1457131" style="width: 170px; height: 107px; left: 190px; top: 25px; position: absolute;" src="images/horizon.png" />
         <div class="SignInToYourAccount" style="width: 676px; height: 278px; left: 198px; top: 200px; position: absolute; color: #F3FFF7; font-size: 48px; font-family: Inter; font-weight: 700;">Sign in to your account</div>
         
         <!-- User ID Input Field -->
@@ -38,23 +38,57 @@
     </div>
     
     <script>
-        document.getElementById('loginButton').addEventListener('click', function() {
-            const userId = document.getElementById('userId').value;
-            const password = document.getElementById('password').value;
-    
-            console.log('Login Button Clicked'); // Debug log
+        // Event listener for login button
+document.getElementById('loginButton').addEventListener('click', async function () {
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
 
-            // Simulating login success
-            if (userId === "testuser" && password === "password123") {
-                alert('Login successful!');
-                // Redirect to the next page upon successful login
-                window.location.href = 'account.html'; // Change to your target page
-            } else {
-                alert('Login failed. Please check your credentials.');
-                //password123
-                //testuser
-            }
+    console.log('Login Button Clicked'); // Debug log
+
+    // Check if input fields are filled
+    if (!userId || !password) {
+        alert('Please enter both User ID and Password.');
+        return;
+    }
+
+    try {
+        // Send a POST request to the backend for user authentication
+        const response = await fetch('http://localhost:3001/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId, password }) // Send user data in request body
         });
+
+        // Check if the response was successful
+        if (response.ok) {
+            const data = await response.json();
+
+            // Assuming backend sends { "success": true } for successful login
+            if (data.success) {
+                alert('Login successful!');
+                // Redirect to the account page or any target page
+                window.location.href = 'account.html';
+            } else {
+                // Display error if login fails
+                alert(data.message || 'Login failed. Incorrect credentials.');
+            }
+        } else {
+            throw new Error('Failed to login. Please check the server.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during login. Please try again later.');
+
+        //password123
+                //testuser
+            
+    }
+});
+
+                
+        
     </script>
     <script src="app.js"></script>
 </body>

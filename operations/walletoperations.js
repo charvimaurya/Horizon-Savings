@@ -1,37 +1,76 @@
-const mongoose = require('mongoose');
 const StellarSdk = require('stellar-sdk');
-const User = require('../models/wallet'); // Import the User model
+const Wallet = require('../models/wallets'); // Import the Wallet model
 
-// Replace with your MongoDB connection string
-const mongoURI = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/';
+// Initialize the Stellar SDK with test network
+const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+const Keypair = StellarSdk.Keypair;
 
-async function connectToDatabase() {
-  await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-  console.log('MongoDB connected');
-}
+// Create a new wallet
+const createWallet = async (walletData) => {
+    try {
+        const keypair = Keypair.random(); // Generate a new keypair
+        const newWallet = new Wallet({
+            publicKey: keypair.publicKey(),
+            secretKey: keypair.secret(),
+            ...walletData // Include other wallet data if needed
+        });
+        
+        // Save wallet to MongoDB
+        await newWallet.save();
 
-// Generate a random Stellar keypair and save it to MongoDB
-async function createAndSaveUser() {
-  const keypair = StellarSdk.Keypair.random();
 
-  console.log('Public Key:', keypair.publicKey());
-  console.log('Secret Key:', keypair.secret());
+        return newWallet; // Return the created wallet
+    } catch (error) {
+        console.error('Error creating wallet:', error);
+        throw error; // Rethrow error to handle it in route
+    }
+};
 
-  const newUser = new User({
-    publicKey: keypair.publicKey(),
-    secretKey: keypair.secret(),
-  });
+// Get all wallets
+const getAllWallets = async () => {
+    try {
+        return await Wallet.find();
+    } catch (error) {
+        console.error('Error fetching wallets:', error);
+        throw error; // Rethrow error to handle it in route
+    }
+};
 
-  await newUser.save();
-  console.log('User saved to MongoDB:', newUser);
-}
+// Get a wallet by ID
+const getWalletById = async (walletId) => {
+    try {
+        return await Wallet.findById(walletId);
+    } catch (error) {
+        console.error('Error fetching wallet:', error);
+        throw error; // Rethrow error to handle it in route
+    }
+};
 
-async function main() {
-  await connectToDatabase();
-  await createAndSaveUser();
-}
+// Update a wallet (e.g., update balance)
+const updateWallet = async (walletId, updateData) => {
+    try {
+        return await Wallet.findByIdAndUpdate(walletId, updateData, { new: true });
+    } catch (error) {
+        console.error('Error updating wallet:', error);
+        throw error; // Rethrow error to handle it in route
+    }
+};
+
+// Delete a wallet
+const deleteWallet = async (walletId) => {
+    try {
+        return await Wallet.findByIdAndDelete(walletId);
+    } catch (error) {
+        console.error('Error deleting wallet:', error);
+        throw error; // Rethrow error to handle it in route
+    }
+};
 
 module.exports = {
-  main,
+    createWallet,
+    getAllWallets,
+    getWalletById,
+    updateWallet,
+    deleteWallet
 };
 

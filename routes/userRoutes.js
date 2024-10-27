@@ -1,0 +1,61 @@
+const express = require('express');
+const router = express.Router();
+const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/useroperations');
+
+<<<<<<< HEAD:routes/users.js
+// Define routes for wallets
+router.get('/', (req, res) => {
+    // Logic to get all wallets
+});
+
+router.post('/', (req, res) => {
+    // Logic to create a new wallet
+
+});
+
+router.get('/:id', (req, res) => {
+    // Logic to get a specific wallet by ID
+});
+
+// Export the router
+=======
+// Create a new user
+router.post('/', async (req, res) => {
+    const userData = req.body;
+    const user = await createUser(userData);
+    res.status(201).json(user);
+});
+
+// Get user by email
+router.get('/:email', async (req, res) => {
+    const user = await getUserByEmail(req.params.email);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// Update user balance
+router.put('/:email/balance', async (req, res) => {
+    const { newBalance } = req.body;
+    const updatedUser = await updateUserBalance(req.params.email, newBalance);
+    if (updatedUser) {
+        res.json(updatedUser);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// Delete user
+router.delete('/:email', async (req, res) => {
+    const result = await deleteUser(req.params.email);
+    if (result.deletedCount > 0) {
+        res.send('User deleted');
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+>>>>>>> f84f5a67a971b6443f09d437d8f7f846a81db7d6:routes/userRoutes.js
+module.exports = router;

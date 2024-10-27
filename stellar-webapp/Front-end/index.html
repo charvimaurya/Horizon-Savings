@@ -1,11 +1,11 @@
-<div class="MacbookAir1" style="width: 1417.17px; height: 906.24px; position: relative; background: #3A33C7; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)">
+<div class="MacbookAir1" style="width: 2007.17px; height: 1006.24px; position: relative; background: #3A33C7; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)">
     <div class="NavBar" style="width: 617px; height: 29px; left: 566px; top: 66px; position: absolute">
         <div class="Dashboard" style="left: 0px; top: 0px; position: absolute; color: white; font-size: 24px; font-family: Inter; font-weight: 700; word-wrap: break-word">Dashboard</div>
         <div class="Transactions" style="left: 190px; top: 0px; position: absolute; color: white; font-size: 24px; font-family: Inter; font-weight: 700; word-wrap: break-word">Transactions</div>
         <div class="Logout" style="left: 534px; top: 0px; position: absolute; color: #F9F2F2; font-size: 24px; font-family: Inter; font-weight: 700; word-wrap: break-word">Logout</div>
         <div class="Profile" style="left: 396px; top: 0px; position: absolute; color: #F4E8E8; font-size: 24px; font-family: Inter; font-weight: 700; word-wrap: break-word">Profile</div>
     </div>
-    <img class="Screenshot20241025At1457131" style="width: 175.61px; height: 56.28px; left: 139px; top: 38px; position: absolute" src="images/logo.png" />
+    <img class="Screenshot20241025At1457131" style="width: 175.61px; height: 120.28px; left: 139px; top: 28px; position: absolute" src="images/horizon.png" />
     <div class="SaveEarnAndLendWithXlm" style="width: 733px; height: 184px; left: 107px; top: 184px; position: absolute"><span style="color: #CE834B; font-size: 96px; font-family: Inter; font-weight: 700; word-wrap: break-word">Save, Earn, and Lend with XLM<br/></span><span style="color: #CE834B; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">  <br/><br/></span></div>
     <div class="YourStellarPathToFinancialGrowth" style="left: 124px; top: 474px; position: absolute; color: #CE834B; font-size: 32px; font-family: Inter; font-weight: 700; word-wrap: break-word">Your Stellar Path to Financial Growth</div>
     <div class="Rectangle1" style="width: 276px; height: 95px; left: -418px; top: 617.50px; position: absolute; background: #FFFBFB"></div>
@@ -18,5 +18,73 @@
     </a>
     
     <img class="Stellar1" style="width: 130.44px; height: 146.75px; left: 1010px; top: 606px; position: absolute" src="images/stellar.png" />
-    <script src="app.js"></script>
+    <script src="script.js"></script>
+    
+
+<script>
+    
+        // Ensure the entire code runs in an asynchronous context
+        (async () => {
+            try {
+                // Send a POST request to the backend for user authentication
+                const response = await fetch('http://localhost:3001/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // Add body if needed, e.g., for username and password
+                    body: JSON.stringify({ username: 'yourUsername', password: 'yourPassword' })
+                });
+    
+                // Check response status
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                console.log('Login successful:', data);
+                // Add additional login handling logic here
+    
+            } catch (error) {
+                console.error('Error during login:', error);
+            }
+    
+            // Stellar SDK setup
+            const StellarSdk = require('stellar-sdk');
+            const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+    
+            // Sample function: Load Stellar Account
+            async function loadAccount(publicKey) {
+                try {
+                    const account = await server.loadAccount(publicKey);
+                    console.log("Account loaded:", account);
+                } catch (error) {
+                    console.error("Error loading account:", error);
+                }
+            }
+    
+            // Function to create a new Stellar account
+            async function createNewAccount() {
+                const pair = StellarSdk.Keypair.random();
+                console.log("New Account Keypair:", pair.publicKey(), pair.secret());
+                // To fund it, you may need to call a backend function that funds the account
+            }
+    
+            // Check if "Get Started" is clicked
+            document.querySelector('.GetStarted').addEventListener('click', () => {
+                const publicKey = "Your Public Key Here"; // Update with actual public key
+                loadAccount(publicKey);  // Attempt to load the Stellar account with the public key
+                // or createNewAccount(); if starting a new account process
+            });
+        })(); // Immediately Invoked Function Expression (IIFE) to handle async/await
+    </script>
+    
+
+
+
+    
+
+
 </div>
+</body>
+</html>
