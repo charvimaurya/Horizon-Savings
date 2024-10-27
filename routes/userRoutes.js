@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { createUser, getUserByEmail, updateUserBalance, deleteUser } = require('../operations/useroperations');
 
-<<<<<<< HEAD:routes/users.js
 // Define routes for wallets
 router.get('/', (req, res) => {
     // Logic to get all wallets
@@ -18,7 +17,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Export the router
-=======
+
 // Create a new user
 router.post('/', async (req, res) => {
     const userData = req.body;
@@ -57,5 +56,4 @@ router.delete('/:email', async (req, res) => {
     }
 });
 
->>>>>>> f84f5a67a971b6443f09d437d8f7f846a81db7d6:routes/userRoutes.js
 module.exports = router;

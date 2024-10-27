@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 //const cors = require('cors');
 const path = require('path');
 
-const userRoutes = require('./routes/userRoutes');
-const walletsRoutes = require('./routes/walletRoutes');
+//const userRoutes = require('./routes/userRoutes');
+//const walletsRoutes = require('./routes/walletRoutes');
+
+const wallets = require('./routes/wallets');
+
 
 const app = express();
-const walletsRoutes = require('./routes/wallets'); // Import wallet routes
-const userRoutes = require('./routes/users'); // Import user routes
 
 // MongoDB connection URI (replace with your actual connection string)
 const uri = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/'; // Add your connection string here
@@ -34,7 +35,7 @@ app.get('/', (req, res) => {
  });
 
 // Connect user routes
-app.use('/api', userRoutes); // Mount user routes under /api
+//app.use('/api', userRoutes); // Mount user routes under /api
 
 // Start the server
 app.listen(PORT, () => {

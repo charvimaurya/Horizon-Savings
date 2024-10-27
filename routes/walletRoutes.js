@@ -6,7 +6,7 @@ const {
     getWalletById,
     updateWallet,
     deleteWallet
-} = require('../operations/walletsoperations');
+} = require('../operations/walletoperations');
 
 // Route to create a new wallet
 router.post('/', async (req, res) => {

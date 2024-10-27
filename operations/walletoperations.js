@@ -1,5 +1,5 @@
 const StellarSdk = require('stellar-sdk');
-const Wallet = require('../models/wallets'); // Import the Wallet model
+const Wallet = require('../models/wallet'); // Import the Wallet model
 
 // Initialize the Stellar SDK with test network
 const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
