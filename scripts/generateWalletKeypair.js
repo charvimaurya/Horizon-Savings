@@ -1,5 +1,5 @@
 const StellarSdk = require('stellar-sdk');
-const { saveWallet } = require('../operations/walletOperations');
+const { saveWallet } = require('../operations/walletoperations');
 require('../config/database'); // Ensures the database is connected
 
 // Generate a random Stellar keypair
