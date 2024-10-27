@@ -26,7 +26,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 // Root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'operations', 'key.html'));
-});
+ });
 
 // API routes
 app.use('/api/users', userRoutes); // Mount user routes

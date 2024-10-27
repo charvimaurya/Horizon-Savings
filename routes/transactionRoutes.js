@@ -1,5 +1,5 @@
 const express = require('express');
-const Transaction = require('./transaction'); // Import the Transaction model
+const Transaction = require('../models/transaction'); // Import the Transaction model
 const router = express.Router();
 
 // Create a new transaction
