@@ -5,28 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Stellar Connection</title>
     <script src="https://cdn.jsdelivr.net/npm/@stellar/sdk@15.0.0/dist/stellar-sdk.umd.js"></script>
-
-
 </head>
 <body>
     <h1>Stellar Wallet Connection Checker</h1>
+    <input type="text" id="publicKeyInput" placeholder="Enter Stellar Public Key" />
     <button id="checkConnectionBtn">Check Stellar Connection</button>
     <div id="result"></div>
 
-    
-        // Function to check Stellar connection
-        <script>
-            import { webAuthStore } from './path/to/your/store';
-            let publicKey = '';
-            
-            function validateKey() {
-              webAuthStore.checkPublicKey(publicKey);
+    <script>
+        document.getElementById('checkConnectionBtn').addEventListener('click', async () => {
+            const publicKey = document.getElementById('publicKeyInput').value;
+
+            if (!publicKey) {
+                document.getElementById('result').innerHTML = "<p>Please enter a public key.</p>";
+                return;
             }
-        </script>
-          
-          <input type="text" bind:value={publicKey} placeholder="Enter Stellar Public Key" />
-          <button on:click={validateKey}>Check Public Key</button>
-          
-    
+
+            try {
+                // Fetch the stored public keys from your backend
+                const response = await fetch('/api/userRoutes'); // Replace with your endpoint
+                const storedKeys = await response.json();
+
+                // Check if the entered public key exists in the stored keys
+                const isValidKey = storedKeys.some(key => key.publicKey === publicKey);
+
+                if (isValidKey) {
+                    document.getElementById('result').innerHTML = "<p>The public key is valid and exists in the database!</p>";
+                } else {
+                    document.getElementById('result').innerHTML = "<p>The public key is not found in the database.</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching public keys:", error);
+                document.getElementById('result').innerHTML = "<p>Error checking public key. Please try again later.</p>";
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,12 +1,30 @@
-// models/wallet.js
 const mongoose = require('mongoose');
 
-// Define a schema and model for MongoDB
+// Define the Wallet Schema
 const walletSchema = new mongoose.Schema({
-  publicKey: String,
-  secretKey: String,
+    publicKey: {
+        type: String,
+        required: true,
+        unique: true // Ensures unique wallet addresses
+    },
+    secretKey: {
+        type: String,
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Reference to User model
+        required: true
+    },
+    balance: {
+        type: Number,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-const Wallet = mongoose.model('Wallet', walletSchema);
-
-module.exports = Wallet;
+// Export the Wallet model
+module.exports = mongoose.model('Wallet', walletSchema);

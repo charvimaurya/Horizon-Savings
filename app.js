@@ -2,21 +2,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+//const cors = require('cors');
 const path = require('path');
 
-const userRoutes = require('./routes/users');
-const walletsRoutes = require('./routes/wallets');
+const userRoutes = require('./routes/userRoutes');
+const walletsRoutes = require('./routes/walletRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const walletsRoutes = require('./routes/wallets'); // Import wallet routes
+const userRoutes = require('./routes/users'); // Import user routes
 
-// MongoDB connection URI (use environment variable for security)
-const uri = process.env.MONGO_URI || 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/';
+// MongoDB connection URI (replace with your actual connection string)
+const uri = 'mongodb+srv://user1:user123@horizonsavings.fit27.mongodb.net/'; // Add your connection string here
+
+//const cors = require('cors');
+const PORT = process.env.PORT || 3000; // Use 3001 or your preferred port
+
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+//app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -26,11 +31,10 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 // Root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'operations', 'key.html'));
-});
+ });
 
-// API routes
-app.use('/api/users', userRoutes); // Mount user routes
-app.use('/api/wallets', walletsRoutes); // Mount wallet routes
+// Connect user routes
+app.use('/api', userRoutes); // Mount user routes under /api
 
 // Start the server
 app.listen(PORT, () => {
