@@ -5,11 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Stellar Keys</title>
     <script src="https://cdn.jsdelivr.net/npm/@stellar/sdk@^15.0.0/dist/stellar-sdk.umd.js"></script>
+    <style>
+        /* Page and container styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #3A33C7;
+            color: #CE834B;
+            text-align: center;
+            top:30;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+
+        }
+
+        .logo {
+            width: 170px;
+            height: 107px;
+            left: 90px;
+            top: 20px;
+            position: absolute;
+        }
+
+        /* Button styling */
+        button {
+            padding: 25px 35px;
+            font-size: 1.5rem;
+            color: #000;
+            background: #FFFBFB;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+
+        .stellar-image {
+            width: 125px;
+            height: 125px;
+            position: absolute;
+            left: 1000px; /* Adjust to ensure it appears outside the box */
+            top: 500px; 
+        }
+
+        button:hover {
+            background: #D9D9D9;
+        }
+
+        /* Result styling */
+        #result {
+            margin-top: 2rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #FFF;
+        }
+
+        /* Paragraph styling */
+        p {
+            margin: 0.5rem 0;
+        }
+    </style>
 </head>
 <body>
+    <img src="../stellar-webapp/Front-end/images/horizon.png"  alt="Logo" class="logo">
     <h1>Generate Stellar Key Pair</h1>
     <button id="generateKeysBtn">Generate Keys</button>
     <div id="result"></div>
+
+    <img src="../stellar-webapp/Front-end/images/stellar.png" alt="Stellar Logo" class="stellar-image">
 
     <script>
         document.getElementById('generateKeysBtn').addEventListener('click', async () => {
