@@ -1,25 +1,74 @@
 const express = require('express');
 const router = express.Router();
-const StellarSdk = require('stellar-sdk'); // Import Stellar SDK if needed
-const User = require('../models/wallet'); // Import your User model
+const {
+    createWallet,
+    getAllWallets,
+    getWalletById,
+    updateWallet,
+    deleteWallet
+} = require('../operations/walletsoperations');
 
-// Example route to create a user
-router.post('/create-user', async (req, res) => {
-    // Generate a Stellar keypair
-    const keypair = StellarSdk.Keypair.random();
-  
+// Route to create a new wallet
+router.post('/', async (req, res) => {
     try {
-        // Create a new user instance
-        const newUser = new User({
-            publicKey: keypair.publicKey(),
-            secretKey: keypair.secret(),
-        });
-        
-        // Save user to MongoDB
-        await newUser.save();
-        res.status(201).json(newUser); // Send back the created user
+        const wallet = await createWallet(req.body);
+        res.status(201).json(wallet); // Return created wallet
     } catch (error) {
-        res.status(500).json({ error: error.message }); // Handle errors
+        res.status(500).json({ error: 'Error creating wallet' });
     }
 });
+
+// Route to get all wallets
+router.get('/', async (req, res) => {
+    try {
+        const wallets = await getAllWallets();
+        res.json(wallets);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching wallets' });
+    }
+});
+
+// Route to get a wallet by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const wallet = await getWalletById(req.params.id);
+        if (wallet) {
+            res.json(wallet);
+        } else {
+            res.status(404).send('Wallet not found');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching wallet' });
+    }
+});
+
+// Route to update a wallet
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedWallet = await updateWallet(req.params.id, req.body);
+        if (updatedWallet) {
+            res.json(updatedWallet);
+        } else {
+            res.status(404).send('Wallet not found');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating wallet' });
+    }
+});
+
+// Route to delete a wallet
+router.delete('/:id', async (req, res) => {
+    try {
+        const result = await deleteWallet(req.params.id);
+        if (result) {
+            res.send('Wallet deleted');
+        } else {
+            res.status(404).send('Wallet not found');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting wallet' });
+    }
+});
+
+// Export the router
 module.exports = router;

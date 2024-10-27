@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 
-const userRoutes = require('./routes/users');
-const walletsRoutes = require('./routes/wallets');
+const userRoutes = require('./routes/userRoutes');
+const walletsRoutes = require('./routes/walletRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
